@@ -1,0 +1,32 @@
+[
+  {
+    "questionNumber": 1,
+    "question": "水星のデータを抽出する",
+    "answer": "SELECT * FROM 惑星一覧 WHERE 名前 = '水星';"
+  },
+  {
+    "questionNumber": 2,
+    "question": "水星でないデータを抽出する",
+    "answer": "SELECT * FROM 惑星一覧 WHERE 名前 <> '水星';"
+  },
+  {
+    "questionNumber": 3,
+    "question": "半径が 10000 以上のデータ",
+    "answer": "SELECT * FROM 惑星一覧 WHERE 半径 >= 10000;"
+  },
+  {
+    "questionNumber": 4,
+    "question": "重量が 60000 以下のデータ",
+    "answer": "SELECT * FROM 惑星一覧 WHERE 重量 <= 60000;"
+  },
+  {
+    "questionNumber": 5,
+    "question": "水星と地球と土星のデータ",
+    "answer": "SELECT * FROM 惑星一覧 WHERE 名前 IN ('水星','地球','土星');"
+  },
+  {
+    "questionNumber": 6,
+    "question": "半径が 3000 以上で重量が 60000 未満のデータ",
+    "answer": "SELECT * FROM 惑星一覧 WHERE 半径 >= 3000 AND 重量 < 60000;"
+  }
+]
