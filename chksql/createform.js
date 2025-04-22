@@ -16,16 +16,13 @@ function createSQLSubmissionFormFromData() {
   const form = FormApp.create(`【${chapter}】課題提出フォーム`);
   form.setDescription("各問題に対してSQL文を記述してください。");
 
-  // 🔐 Googleログインユーザーのメールを自動収集
-  form.setCollectEmail(true); // ← これで「メールアドレス」列が自動的に追加されます
-
   // メール欄を追加（フォーム回答とともに記録される）
-  // form.addTextItem().setTitle("メール").setRequired(true);
+  form.addTextItem().setTitle("メール").setRequired(true);
 
   // 氏名の入力
   form.addTextItem().setTitle("氏名").setRequired(true);
 
-  data.forEach(item => {
+  data.forEach((item) => {
     const title = `Q${item.questionNumber}: ${item.question}`;
     form.addParagraphTextItem().setTitle(title).setRequired(false);
   });
@@ -41,10 +38,12 @@ function createSQLSubmissionFormFromData() {
   // 正誤判定列を追加（見出し行の右に）
   const sheetObject = SpreadsheetApp.openById(sheet.getId());
   const sheet1 = sheetObject.getSheets()[0];
-  const headers = sheet1.getRange(1, 1, 1, sheet1.getLastColumn()).getValues()[0];
+  const headers = sheet1
+    .getRange(1, 1, 1, sheet1.getLastColumn())
+    .getValues()[0];
   const numOriginalCols = headers.length;
 
-  const 判定列 = data.map(item => `判定_Q${item.questionNumber}`);
+  const 判定列 = data.map((item) => `判定_Q${item.questionNumber}`);
   sheet1.getRange(1, numOriginalCols + 1, 1, 判定列.length).setValues([判定列]);
 
   // フォームとスプレッドシートを quiz_data.json と同じフォルダに移動
@@ -63,7 +62,6 @@ function createSQLSubmissionFormFromData() {
     Logger.log("親フォルダが見つかりません。");
   }
 
-  
   Logger.log("フォーム編集URL: " + form.getEditUrl());
   Logger.log("フォーム回答URL: " + form.getPublishedUrl());
 }
