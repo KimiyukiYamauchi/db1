@@ -62,14 +62,11 @@ function sendJudgementEmails() {
   const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
   const allValues = sheet.getDataRange().getValues();
 
-  const emailColIndex = headers.findIndex((h) =>
-    h.toLowerCase().includes("メール")
-  );
+  Logger.log("headers: " + JSON.stringify(headers));
 
+  const emailColIndex = findEmailColumnIndex(headers);
   if (emailColIndex === -1) {
-    throw new Error(
-      "メールアドレス列が見つかりません。フォームに 'メールアドレス' を追加してください。"
-    );
+    throw new Error("メールアドレス列（Email Address）が見つかりません。");
   }
 
   for (let row = 1; row < allValues.length; row++) {
@@ -95,6 +92,12 @@ function sendJudgementEmails() {
   Logger.log("すべての回答者に判定メールを送信しました。");
 }
 
+function findEmailColumnIndex(headers) {
+  return headers.findIndex(h => {
+    return typeof h === 'string' && h.trim().toLowerCase() === "email address";
+  });
+}
+
 function getCorrectAnswersFromJson() {
   const fileName = "quiz_data.json";
   const files = DriveApp.getFilesByName(fileName);
@@ -118,7 +121,7 @@ function getCorrectAnswersFromJson() {
 }
 
 function getSQLJudgementWithChatGPT(studentSQL, correctSQL) {
-  const apiKey = ""; // ← ここにAPIキーをセット
+  const apiKey = ScriptProperties.getProperty('API_KEY'); // ← ここにAPIキーをセット
   const prompt = `
 以下のSQL文が同じ意味を持つか判定してください。
 
