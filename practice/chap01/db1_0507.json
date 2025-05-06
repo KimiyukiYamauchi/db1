@@ -1,0 +1,252 @@
+[
+  {
+    "chapter": "Chapter1 初めてのSQL",
+    "questionNumber": 1,
+    "question": "リレーショナルデータベースにおいて、「テーブル」の中にある1つ1つの「行」は何を表しますか？",
+    "choices": [
+      "データベースの名前",
+      "属性（カラム）の集合",
+      "1件のレコード（データ）",
+      "列の名前"
+    ],
+    "answer": ["1件のレコード（データ）"],
+    "explanation": "リレーショナルデータベースにおいて、テーブルの中の1つ1つの「行」は「レコード」と呼ばれ、1件のデータを表します。各行は、テーブルの属性（カラム）に対応する値を持っています。\n他の選択肢は以下の理由で誤りです：\n・データベースの名前はテーブルとは別に定義されます。\n・属性（カラム）はテーブルの列を指し、行とは異なります。\n・列の名前はカラム名と呼ばれ、行とは異なります。"
+  },
+  {
+    "chapter": "Chapter1 初めてのSQL",
+    "questionNumber": 2,
+    "question": "リレーショナルデータベースの「列（カラム）」に該当する説明として正しいものはどれですか？",
+    "choices": [
+      "テーブル間の関連性",
+      "データの一行一行",
+      "各項目の属性やデータ型",
+      "検索結果の一覧"
+    ],
+    "answer": ["各項目の属性やデータ型"],
+    "explanation": "リレーショナルデータベースにおいて、「列（カラム）」はテーブルの各項目の属性やデータ型を表します。例えば、顧客情報を格納するテーブルでは、「名前」や「電話番号」などがカラムに該当します。\n他の選択肢は以下の理由で誤りです：\n・テーブル間の関連性は「リレーションシップ」と呼ばれ、カラムとは異なります。\n・データの一行一行は「レコード」と呼ばれ、カラムとは異なります。\n・検索結果の一覧は「クエリ結果」と呼ばれ、カラムとは異なります。"
+  },
+  {
+    "chapter": "Chapter1 初めてのSQL",
+    "questionNumber": 3,
+    "question": "次のうち、リレーショナルデータベースの「テーブル」に該当する説明として最も適切なものはどれですか？",
+    "choices": [
+      "データベースの外部キー一覧",
+      "行と列から構成されるデータの集合",
+      "データベースに接続するためのユーザー情報",
+      "保存されたSQLクエリの履歴"
+    ],
+    "answer": ["行と列から構成されるデータの集合"],
+    "explanation": "リレーショナルデータベースの「テーブル」は、行と列から構成されるデータの集合を指します。各行は1件のレコードを表し、各列はそのレコードの属性を表します。\n他の選択肢は以下の理由で誤りです：\n・データベースの外部キー一覧はテーブルとは異なります。\n・データベースに接続するためのユーザー情報は「ユーザーアカウント」と呼ばれ、テーブルとは異なります。\n・保存されたSQLクエリの履歴は「クエリログ」と呼ばれ、テーブルとは異なります。"
+  },
+  {
+    "chapter": "Chapter1 初めてのSQL",
+    "questionNumber": 4,
+    "question": "リレーショナルデータベースにおいて、あるテーブルの「列名」と「データ型」はどこに定義されますか？",
+    "choices": ["インデックスファイル", "スキーマ", "ビュー", "クエリログ"],
+    "answer": ["スキーマ"],
+    "explanation": "リレーショナルデータベースにおいて、テーブルの「列名」と「データ型」は「スキーマ」に定義されます。スキーマは、データベース内のテーブルやその属性（カラム）の構造を定義するものです。\n他の選択肢は以下の理由で誤りです：\n・インデックスファイルは検索効率を上げるためのもので、列名やデータ型とは異なります。\n・ビューはクエリ結果を仮想的なテーブルとして扱うもので、列名やデータ型とは異なります。\n・クエリログは実行されたSQLクエリの履歴を記録するもので、列名やデータ型とは異なります。"
+  },
+  {
+    "chapter": "Chapter1 初めてのSQL",
+    "questionNumber": 5,
+    "question": "SELECT文を使って、特定のテーブルから全ての列のデータを取得する正しい構文はどれですか？",
+    "choices": [
+      "SELECT ALL FROM table_name;",
+      "GET * FROM table_name;",
+      "SELECT * FROM table_name;",
+      "FETCH * FROM table_name;"
+    ],
+    "answer": ["SELECT * FROM table_name;"],
+    "explanation": "SELECT文を使って特定のテーブルから全ての列のデータを取得するには、`SELECT * FROM table_name;`という構文を使用します。\n他の選択肢は以下の理由で誤りです：\n・`SELECT ALL FROM table_name;`は正しい構文ではありません。\n・`GET * FROM table_name;`はSQLの標準構文ではありません。\n・`FETCH * FROM table_name;`も正しい構文ではありません。"
+  },
+  {
+    "chapter": "Chapter1 初めてのSQL",
+    "questionNumber": 6,
+    "question": "次のSELECT文の目的として最も適切なものはどれですか？\nSELECT name, age FROM students WHERE age >= 20;",
+    "choices": [
+      "学生全員の名前と年齢を表示する",
+      "年齢が20歳未満の学生の名前を表示する",
+      "名前が「age」の学生を抽出する",
+      "年齢が20歳以上の学生の名前と年齢を表示する"
+    ],
+    "answer": ["年齢が20歳以上の学生の名前と年齢を表示する"],
+    "explanation": "このSELECT文は、`students`テーブルから年齢が20歳以上の学生の名前と年齢を抽出するためのものです。\n他の選択肢は以下の理由で誤りです：\n・学生全員の名前と年齢を表示するわけではなく、条件が付いています。\n・年齢が20歳未満の学生は抽出されません。\n・名前が「age」の学生を抽出するわけではありません。"
+  },
+  {
+    "chapter": "Chapter1 初めてのSQL",
+    "questionNumber": 7,
+    "question": "SELECT文で結果を年齢の昇順に並べるには、どの句を使いますか？",
+    "choices": [
+      "GROUP BY age",
+      "ORDER BY age ASC",
+      "SORT BY age",
+      "WHERE age ORDER ASC"
+    ],
+    "answer": ["ORDER BY age ASC"],
+    "explanation": "SELECT文で結果を年齢の昇順に並べるには、`ORDER BY age ASC`句を使用します。`ASC`は昇順を意味します。\n他の選択肢は以下の理由で誤りです：\n・`GROUP BY age`は集約関数と一緒に使用されるもので、並べ替えには使いません。\n・`SORT BY age`はSQLの標準構文ではありません。\n・`WHERE age ORDER ASC`は正しい構文ではありません。"
+  },
+  {
+    "chapter": "Chapter1 初めてのSQL",
+    "questionNumber": 8,
+    "question": "次のうち、SELECT文で「重複する行を除外して結果を取得」したいときに使うキーワードはどれですか？",
+    "choices": ["ALL", "ONLY", "DISTINCT", "UNIQUE"],
+    "answer": ["DISTINCT"],
+    "explanation": "SELECT文で重複する行を除外して結果を取得したいときは、`DISTINCT`キーワードを使用します。これにより、重複する行が除外され、ユニークな値のみが取得されます。\n他の選択肢は以下の理由で誤りです：\n・`ALL`は重複を許可するオプションです。\n・`ONLY`はSQLの標準構文ではありません。\n・`UNIQUE`は制約として使用されることが多く、SELECT文では使用しません。"
+  },
+  {
+    "chapter": "Chapter1 初めてのSQL",
+    "questionNumber": 9,
+    "question": "新しいデータをテーブルに追加するための正しいINSERT文はどれですか？",
+    "choices": [
+      "INSERT INTO table_name VALUES ('value1', 'value2');",
+      "ADD INTO table_name VALUES ('value1', 'value2');",
+      "INSERT table_name VALUES ('value1', 'value2');",
+      "PUT INTO table_name ('value1', 'value2');"
+    ],
+    "answer": ["INSERT INTO table_name VALUES ('value1', 'value2');"],
+    "explanation": ""
+  },
+  {
+    "chapter": "Chapter1 初めてのSQL",
+    "questionNumber": 10,
+    "question": "次の文はどのようなときに使いますか？\nINSERT INTO users (name, age) VALUES ('Taro', 25);",
+    "choices": [
+      "usersテーブルのnameとage列のデータを更新する",
+      "usersテーブルからnameとageのデータを削除する",
+      "usersテーブルに新しい行を追加する",
+      "usersテーブルのname列を削除する"
+    ],
+    "answer": ["usersテーブルに新しい行を追加する"],
+    "explanation": ""
+  },
+  {
+    "chapter": "Chapter1 初めてのSQL",
+    "questionNumber": 11,
+    "question": "INSERT文で列名を省略して値を指定する場合に注意すべき点はどれですか？",
+    "choices": [
+      "値の数はテーブル内の列数より少なくなければならない",
+      "値の順序や数はテーブル定義の列と完全に一致しなければならない",
+      "NULLを省略しても問題ない",
+      "すべての値は文字列として扱われる"
+    ],
+    "answer": ["値の順序や数はテーブル定義の列と完全に一致しなければならない"],
+    "explanation": ""
+  },
+  {
+    "chapter": "Chapter1 初めてのSQL",
+    "questionNumber": 12,
+    "question": "次のうち、INSERT文で複数の行を一度に追加する正しい書き方はどれですか？",
+    "choices": [
+      "INSERT INTO products VALUES ('pen', 100);\nINSERT INTO products VALUES ('notebook', 200);",
+      "INSERT ALL INTO products VALUES ('pen', 100), ('notebook', 200);",
+      "INSERT INTO products VALUES ('pen', 100), ('notebook', 200);",
+      "ADD TO products VALUES ('pen', 100) AND ('notebook', 200);"
+    ],
+    "answer": ["INSERT INTO products VALUES ('pen', 100), ('notebook', 200);"],
+    "explanation": ""
+  },
+  {
+    "chapter": "Chapter1 初めてのSQL",
+    "questionNumber": 13,
+    "question": "UPDATE文の目的として正しいものはどれですか？",
+    "choices": [
+      "テーブルに新しい行を追加する",
+      "テーブルの構造を変更する",
+      "テーブルの既存のデータを変更する",
+      "テーブルの全データを削除する"
+    ],
+    "answer": ["テーブルの既存のデータを変更する"],
+    "explanation": ""
+  },
+  {
+    "chapter": "Chapter1 初めてのSQL",
+    "questionNumber": 14,
+    "question": "'次のうち、UPDATE文の正しい構文はどれですか？",
+    "choices": [
+      "UPDATE table_name SET column1 = value1, column2 = value2;",
+      "UPDATE table_name VALUES (column1 = value1, column2 = value2);",
+      "MODIFY table_name SET column1 = value1, column2 = value2;",
+      "SET column1 = value1, column2 = value2 IN table_name;"
+    ],
+    "answer": ["UPDATE table_name SET column1 = value1, column2 = value2;"],
+    "explanation": ""
+  },
+  {
+    "chapter": "Chapter1 初めてのSQL",
+    "questionNumber": 15,
+    "question": "次のSQL文は何を意味していますか？\nUPDATE employees SET salary = 5000 WHERE id = 3;",
+    "choices": [
+      "全ての従業員の給料を5000に更新する",
+      "IDが3の従業員の給料を5000に更新する",
+      "給料が5000の従業員のIDを3に変更する",
+      "従業員テーブルからIDが3の行を削除する"
+    ],
+    "answer": ["IDが3の従業員の給料を5000に更新する"],
+    "explanation": ""
+  },
+  {
+    "chapter": "Chapter1 初めてのSQL",
+    "questionNumber": 16,
+    "question": "UPDATE文を使う際にWHERE句を省略するとどうなりますか？",
+    "choices": [
+      "エラーになる",
+      "最初の1行だけが更新される",
+      "指定された列がすべて削除される",
+      "テーブル内のすべての行が更新される"
+    ],
+    "answer": ["テーブル内のすべての行が更新される"],
+    "explanation": ""
+  },
+  {
+    "chapter": "Chapter1 初めてのSQL",
+    "questionNumber": 17,
+    "question": "DELETE文の主な目的は何ですか？",
+    "choices": [
+      "テーブルに行を追加する",
+      "テーブルから特定の行を削除する",
+      "テーブルを作成する",
+      "テーブルの列を変更する"
+    ],
+    "answer": ["テーブルから特定の行を削除する"],
+    "explanation": ""
+  },
+  {
+    "chapter": "Chapter1 初めてのSQL",
+    "questionNumber": 18,
+    "question": "'次のうち、DELETE文で全ての行を削除する場合に必要な句はどれですか？",
+    "choices": [
+      "DELETE * FROM table_name;",
+      "REMOVE FROM table_name WHERE 条件;",
+      "DELETE FROM table_name WHERE 条件;",
+      "DELETE ROW FROM table_name WHERE 条件;"
+    ],
+    "answer": ["DELETE FROM table_name WHERE 条件;"],
+    "explanation": ""
+  },
+  {
+    "chapter": "Chapter1 初めてのSQL",
+    "questionNumber": 19,
+    "question": "次のSQL文を実行すると、どのような操作が行われますか？\nDELETE FROM orders WHERE order_id = 1001;",
+    "choices": [
+      "ordersテーブルのすべての行が削除される",
+      "order_idが1001の行だけが削除される",
+      "order_id列が削除される",
+      "ordersテーブルが削除される"
+    ],
+    "answer": ["order_idが1001の行だけが削除される"],
+    "explanation": ""
+  },
+  {
+    "chapter": "Chapter1 初めてのSQL",
+    "questionNumber": 20,
+    "question": "'DELETE文でWHERE句を省略すると、どのような結果になりますか？",
+    "choices": [
+      "エラーになる",
+      "条件がないため何も削除されない",
+      "最初の1行だけ削除される",
+      "テーブル内の全ての行が削除される"
+    ],
+    "answer": ["テーブル内の全ての行が削除される"],
+    "explanation": ""
+  }
+]
