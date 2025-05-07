@@ -10,7 +10,7 @@ cd db1
 ### 2. Vagrantfile の初期化（Ubuntu Boxを指定）
 
 ``` bash
-vagrant init ubuntu/focal64   # Ubuntu 20.04 LTS
+vagrant init bento/ubuntu-24.04
 ```
 
 ### 3. 仮想マシンの起動
@@ -26,6 +26,8 @@ vagrant up
 vagrant ssh
 ```
 
+---
+以下は保留
 ## ホスト側のvscodeからゲストのvagrantユーザのhomeディレクトリを参照する
 
 ### 1. VS CodeにRemote - SSH拡張機能をインストール
@@ -42,13 +44,13 @@ vagrant ssh-config
 このコマンドは以下のような出力を返します：
 ```
 Host default
-  HostName 127.0.0.1
+  HostName 192.168.121.122
   User vagrant
-  Port 2222
+  Port 22
   UserKnownHostsFile /dev/null
   StrictHostKeyChecking no
   PasswordAuthentication no
-  IdentityFile /home/kimiyuki/vmd/db1/.vagrant/machines/default/virtualbox/private_key
+  IdentityFile /home/yamauchi/Boxes/db1/.vagrant/machines/default/libvirt/private_key
   IdentitiesOnly yes
   LogLevel FATAL
   PubkeyAcceptedKeyTypes +ssh-rsa
