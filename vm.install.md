@@ -10,7 +10,7 @@ cd db1
 ### 2. Vagrantfile の初期化（Ubuntu Boxを指定）
 
 ``` bash
-vagrant init ubuntu/focal64   # Ubuntu 20.04 LTS
+vagrant init ubuntu/bionic64
 ```
 
 ### 3. 仮想マシンの起動
@@ -26,6 +26,8 @@ vagrant up
 vagrant ssh
 ```
 
+---
+以下は保留
 ## ホスト側のvscodeからゲストのvagrantユーザのhomeディレクトリを参照する
 
 ### 1. VS CodeにRemote - SSH拡張機能をインストール
