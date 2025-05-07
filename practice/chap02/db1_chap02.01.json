@@ -1,0 +1,52 @@
+[
+  {
+    "questionNumber": 1,
+    "question": "テーブル「都道府県」から、すべての列を明示的に指定して全行を取得するSQL文を記述してください。",
+    "answer": "SELECT コード, 地域, 都道府県名, 県庁所在地, 面積 FROM 都道府県;"
+  },
+  {
+    "questionNumber": 2,
+    "question": "テーブル「都道府県」から、すべての列を取得するが、列名は省略して取得するSQL文を記述してください。",
+    "answer": "SELECT * FROM 都道府県;"
+  },
+  {
+    "questionNumber": 3,
+    "question": "「地域」「都道府県名」の列だけを抽出し、それぞれに「area」「pref」という別名（エイリアス）をつけて取得するSQL文を記述してください。",
+    "answer": "SELECT 地域 AS area, 都道府県名 AS pref FROM 都道府県;"
+  },
+  {
+    "questionNumber": 4,
+    "question": "「地域」列の値が「東北」の行だけを、「地域」「都道府県名」の列だけで取得するSQL文を記述してください。",
+    "answer": "SELECT 地域, 都道府県名 FROM 都道府県 WHERE 地域 = '東北';"
+  },
+  {
+    "questionNumber": 5,
+    "question": "「関東」地方の都道府県で、面積が5000以上の都道府県名と面積を取得するSQL文を記述してください。",
+    "answer": "SELECT 都道府県名, 面積 FROM 都道府県 WHERE 地域 = '関東' AND 面積 >= 5000;"
+  },
+  {
+    "questionNumber": 6,
+    "question": "「面積」が10000以上の都道府県について、都道府県名・県庁所在地・面積を表示するSQL文を記述してください。",
+    "answer": "SELECT 都道府県名, 県庁所在地, 面積 FROM 都道府県 WHERE 面積 >= 10000;"
+  },
+  {
+    "questionNumber": 7,
+    "question": " 「県庁所在地」が「福岡」である行をすべての列について取得するSQL文を記述してください。",
+    "answer": "SELECT * FROM 都道府県 WHERE 県庁所在地 = '福岡';"
+  },
+  {
+    "questionNumber": 8,
+    "question": "面積の大きい順（降順）で、都道府県名と面積を表示するSQL文を記述してください。",
+    "answer": "SELECT 都道府県名, 面積 FROM 都道府県 ORDER BY 面積 DESC;"
+  },
+  {
+    "questionNumber": 9,
+    "question": "地域ごとにまとめて、地域名と都道府県数を表示するSQL文を記述してください。",
+    "answer": "SELECT 地域, COUNT(*) FROM 都道府県 GROUP BY 地域;"
+  },
+  {
+    "questionNumber": 10,
+    "question": "面積の平均値を求めるSQL文を記述してください。列名は「面積」としてください。",
+    "answer": "SELECT AVG(面積) FROM 都道府県;"
+  }
+]
