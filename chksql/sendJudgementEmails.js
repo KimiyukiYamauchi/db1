@@ -5,9 +5,15 @@ function sendJudgementEmails() {
   const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
   const allValues = sheet.getDataRange().getValues();
   const emailColIndex = findEmailColumnIndex(headers);
+  const nameColIndex = headers.findIndex(
+    (h) => typeof h === "string" && h.trim() === "氏名"
+  );
 
   if (emailColIndex === -1) {
     throw new Error("メールアドレス列（Email Address）が見つかりません。");
+  }
+  if (nameColIndex === -1) {
+    throw new Error("氏名列が見つかりません。");
   }
 
   // JSONファイルの読み込み
@@ -24,7 +30,9 @@ function sendJudgementEmails() {
   for (let row = 1; row < allValues.length; row++) {
     const rowData = allValues[row];
     const email = rowData[emailColIndex];
-    let mailBody = "Database1課題の判定結果をお送りします。\n\n";
+    const name = rowData[nameColIndex] || "学生";
+
+    let mailBody = `${name}さん、\nDatabase1課題の判定結果をお送りします。\n\n`;
 
     headers.forEach((header, colIndex) => {
       if (header.startsWith("判定_Q")) {
@@ -59,7 +67,8 @@ function sendJudgementEmails() {
     });
 
     if (email) {
-      GmailApp.sendEmail(email, "Database1課題の判定結果", mailBody);
+      // GmailApp.sendEmail(email, "Database1課題の判定結果", mailBody); // メールを送信
+      GmailApp.createDraft(email, "Database1課題の判定結果", mailBody); // 下書きを保存
       Logger.log(`判定結果を ${email} に送信しました。`);
     }
   }
