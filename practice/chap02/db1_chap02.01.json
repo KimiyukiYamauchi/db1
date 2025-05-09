@@ -47,6 +47,6 @@
   {
     "questionNumber": 10,
     "question": "面積の平均値を求めるSQL文を記述してください。列名は「面積」としてください。",
-    "answer": "SELECT AVG(面積) FROM 都道府県;"
+    "answer": "SELECT AVG(面積) AS 面積 FROM 都道府県;"
   }
 ]
