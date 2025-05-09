@@ -1,5 +1,6 @@
 function gradeAllResponses() {
-  const spreadsheetId = PropertiesService.getScriptProperties().getProperty("SPREADSHEET_ID");
+  const spreadsheetId =
+    PropertiesService.getScriptProperties().getProperty("SPREADSHEET_ID");
   const sheet = SpreadsheetApp.openById(spreadsheetId).getSheets()[0];
 
   const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
@@ -20,9 +21,16 @@ function gradeAllResponses() {
         const studentSQL = rowData[colIndex];
         const correctSQL = correctAnswers[qNum];
 
-        if (correctSQL && 判定ColIndex !== -1 && studentSQL) {
-          const feedback = getSQLJudgementWithChatGPT(studentSQL, correctSQL);
-          sheet.getRange(row + 1, 判定ColIndex + 1).setValue(feedback); // +1は1行目がヘッダーのため
+        if (correctSQL && 判定ColIndex !== -1) {
+          let feedback = "";
+
+          if (studentSQL && studentSQL.trim() !== "") {
+            feedback = getSQLJudgementWithChatGPT(studentSQL, correctSQL);
+          } else {
+            feedback = "判定：不正解\n理由：未入力のため";
+          }
+
+          sheet.getRange(row + 1, 判定ColIndex + 1).setValue(feedback);
         }
       }
     });
@@ -54,7 +62,7 @@ function getCorrectAnswersFromJson() {
 }
 
 function getSQLJudgementWithChatGPT(studentSQL, correctSQL) {
-  const apiKey = ScriptProperties.getProperty('API_KEY'); // ← ここにAPIキーをセット
+  const apiKey = PropertiesService.getScriptProperties().getProperty("API_KEY"); // ← ここにAPIキーをセット
   const prompt = `
 あなたは優秀なリレーショナルデータベースの講師です。
 学生が提出した「学生の解答」と「模範解答」を比較し、問題点を指摘してください
