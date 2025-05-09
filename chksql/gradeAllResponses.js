@@ -1,6 +1,5 @@
 function gradeAllResponses() {
-  const spreadsheetId =
-    PropertiesService.getScriptProperties().getProperty("SPREADSHEET_ID");
+  const spreadsheetId = PropertiesService.getScriptProperties().getProperty("SPREADSHEET_ID");
   const sheet = SpreadsheetApp.openById(spreadsheetId).getSheets()[0];
 
   const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
@@ -33,7 +32,7 @@ function gradeAllResponses() {
 }
 
 function getCorrectAnswersFromJson() {
-  const fileName = "quiz_data.json";
+  const fileName = "db1_chap02.01.json";
   const files = DriveApp.getFilesByName(fileName);
 
   if (!files.hasNext()) {
@@ -55,9 +54,11 @@ function getCorrectAnswersFromJson() {
 }
 
 function getSQLJudgementWithChatGPT(studentSQL, correctSQL) {
-  const apiKey = ScriptProperties.getProperty("API_KEY"); // ← ここにAPIキーをセット
+  const apiKey = ScriptProperties.getProperty('API_KEY'); // ← ここにAPIキーをセット
   const prompt = `
-以下のSQL文が同じ意味を持つか判定してください。
+あなたは優秀なリレーショナルデータベースの講師です。
+学生が提出した「学生の解答」と「模範解答」を比較し、問題点を指摘してください
+「学生の解答」を「あなたの解答」として、問題点を指摘してください
 
 【学生の解答】
 ${studentSQL}
@@ -68,10 +69,17 @@ ${correctSQL}
 次の形式で出力してください：
 判定：正解 または 不正解
 理由：○○○
+
+### 理由の例
+- あなたの解答は模範解答と全く同じであり、SQLの文法も正しく、特に問題はありません。
+- あなたの解答はSQL文の最初のキーワードが"ELECT"となっていますが、これは誤りで、正しくは"SELECT"となります。"SELECT"はデータベースからデータを選択するためのSQLのキーワードです。
+- あなたの解答では半径が10000より大きい惑星の情報を取得していますが、模範解答では半径が10000以上の惑星の情報を取得しています。したがって、半径がちょうど10000の惑星の情報は学生の解答では取得できません。この違いが問題となります。
+- あなたの解答では、重量が60000より小さい惑星の情報を取得しています。しかし、模範解答では、重量が60000以下の惑星の情報を取得しています。したがって、重量がちょうど60000の惑星の情報が学生の解答では取得できないため、不正解となります。
+- 実行不可能のため不正解です。
 `;
 
   const payload = {
-    model: "gpt-4",
+    model: "gpt-4.1-mini",
     messages: [{ role: "user", content: prompt }],
     temperature: 0.2,
   };
