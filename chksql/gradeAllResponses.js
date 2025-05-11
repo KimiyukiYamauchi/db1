@@ -110,3 +110,83 @@ ${correctSQL}
     return "エラー: " + error.message;
   }
 }
+
+function appendJudgementSummaryRow() {
+  const spreadsheetId =
+    PropertiesService.getScriptProperties().getProperty("SPREADSHEET_ID");
+  const sheet = SpreadsheetApp.openById(spreadsheetId).getSheets()[0];
+  const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+  const data = sheet.getDataRange().getValues();
+
+  const summaryRow = new Array(headers.length).fill("");
+
+  headers.forEach((header, colIndex) => {
+    if (header.startsWith("判定_Q")) {
+      let correct = 0;
+      let incorrect = 0;
+
+      for (let i = 1; i < data.length; i++) {
+        const value = data[i][colIndex];
+        if (typeof value === "string") {
+          if (/判定\s*[:：]\s*正解/.test(value)) {
+            correct++;
+          } else if (/判定\s*[:：]\s*不正解/.test(value)) {
+            incorrect++;
+          }
+        }
+      }
+
+      const total = correct + incorrect;
+      const rate = total > 0 ? Math.round((correct / total) * 100) : 0;
+
+      summaryRow[
+        colIndex
+      ] = `正解: ${correct} / 不正解: ${incorrect} / 正解率: ${rate}%`;
+    }
+  });
+
+  sheet.appendRow(summaryRow);
+  Logger.log("判定集計行を追加しました。");
+}
+
+function appendJudgementSummaryColumns() {
+  const spreadsheetId =
+    PropertiesService.getScriptProperties().getProperty("SPREADSHEET_ID");
+  const sheet = SpreadsheetApp.openById(spreadsheetId).getSheets()[0];
+  const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+  const data = sheet.getDataRange().getValues();
+
+  // 判定_Qn の列インデックスを抽出
+  const 判定ColIndices = headers
+    .map((h, i) => (h.startsWith("判定_Q") ? i : -1))
+    .filter((i) => i !== -1);
+
+  const newHeaders = ["正解数", "不正解数", "正解率"];
+  sheet
+    .getRange(1, headers.length + 1, 1, newHeaders.length)
+    .setValues([newHeaders]);
+
+  for (let row = 1; row < data.length; row++) {
+    let correct = 0;
+    let incorrect = 0;
+
+    判定ColIndices.forEach((col) => {
+      const value = data[row][col];
+      if (typeof value === "string") {
+        if (/判定\s*[:：]\s*正解/.test(value)) {
+          correct++;
+        } else if (/判定\s*[:：]\s*不正解/.test(value)) {
+          incorrect++;
+        }
+      }
+    });
+
+    const total = correct + incorrect;
+    const rate = total > 0 ? Math.round((correct / total) * 100) : 0;
+    const resultRow = [[correct, incorrect, `${rate}%`]];
+
+    sheet.getRange(row + 1, headers.length + 1, 1, 3).setValues(resultRow);
+  }
+
+  Logger.log("各行の正解数・不正解数・正解率を追加しました。");
+}
