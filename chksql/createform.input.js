@@ -1,5 +1,8 @@
 function createSQLSubmissionFormFromData() {
-  const fileName = "db1_chap03.01.json";
+  const scriptProperties = PropertiesService.getScriptProperties();
+  const fileName = scriptProperties.getProperty("JSON_FILE_NAME");
+  const chapter = scriptProperties.getProperty("CHAPTER_TITLE");
+
   const files = DriveApp.getFilesByName(fileName);
 
   if (!files.hasNext()) {
@@ -12,7 +15,6 @@ function createSQLSubmissionFormFromData() {
   const data = JSON.parse(content);
 
   // フォーム作成
-  const chapter = "Chapter3 操作する行の絞り込み(その1)";
   const form = FormApp.create(`【${chapter}】課題提出フォーム`);
   form.setDescription("各問題に対してSQL文を記述してください。");
 
@@ -46,17 +48,15 @@ function createSQLSubmissionFormFromData() {
   const 判定列 = data.map((item) => `判定_Q${item.questionNumber}`);
   sheet1.getRange(1, numOriginalCols + 1, 1, 判定列.length).setValues([判定列]);
 
-  // フォームとスプレッドシートを quiz_data.json と同じフォルダに移動
+  // フォームとスプレッドシートを jsonファイル と同じフォルダに移動
   const parentFolders = file.getParents();
   const formFile = DriveApp.getFileById(form.getId());
   const sheetFile = DriveApp.getFileById(sheet.getId());
 
   if (parentFolders.hasNext()) {
     const parent = parentFolders.next();
-    parent.addFile(formFile);
-    parent.addFile(sheetFile);
-    DriveApp.getRootFolder().removeFile(formFile);
-    DriveApp.getRootFolder().removeFile(sheetFile);
+    formFile.moveTo(parent);
+    sheetFile.moveTo(parent);
     Logger.log("フォームとシートをフォルダに移動しました。");
   } else {
     Logger.log("親フォルダが見つかりません。");
