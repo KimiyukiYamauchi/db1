@@ -1,6 +1,5 @@
 function gradeAllResponses() {
-  const spreadsheetId =
-    PropertiesService.getScriptProperties().getProperty("SPREADSHEET_ID");
+  const spreadsheetId = PropertiesService.getScriptProperties().getProperty("SPREADSHEET_ID");
   const sheet = SpreadsheetApp.openById(spreadsheetId).getSheets()[0];
 
   const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
@@ -40,11 +39,11 @@ function gradeAllResponses() {
 }
 
 function getCorrectAnswersFromJson() {
-  const fileName = "db1_chap02.01.json";
+  const fileName = PropertiesService.getScriptProperties().getProperty("JSON_FILE_NAME");
   const files = DriveApp.getFilesByName(fileName);
 
   if (!files.hasNext()) {
-    throw new Error("quiz_data.json が見つかりません。");
+    throw new Error(fileName + " が見つかりません。");
   }
 
   const file = files.next();
@@ -62,7 +61,7 @@ function getCorrectAnswersFromJson() {
 }
 
 function getSQLJudgementWithChatGPT(studentSQL, correctSQL) {
-  const apiKey = PropertiesService.getScriptProperties().getProperty("API_KEY"); // ← ここにAPIキーをセット
+  const apiKey = PropertiesService.getScriptProperties().getProperty('API_KEY'); // ← ここにAPIキーをセット
   const prompt = `
 あなたは優秀なリレーショナルデータベースの講師です。
 学生が提出した「学生の解答」と「模範解答」を比較し、問題点を指摘してください
@@ -112,8 +111,7 @@ ${correctSQL}
 }
 
 function appendJudgementSummaryRow() {
-  const spreadsheetId =
-    PropertiesService.getScriptProperties().getProperty("SPREADSHEET_ID");
+  const spreadsheetId = PropertiesService.getScriptProperties().getProperty("SPREADSHEET_ID");
   const sheet = SpreadsheetApp.openById(spreadsheetId).getSheets()[0];
   const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
   const data = sheet.getDataRange().getValues();
@@ -127,7 +125,7 @@ function appendJudgementSummaryRow() {
 
       for (let i = 1; i < data.length; i++) {
         const value = data[i][colIndex];
-        if (typeof value === "string") {
+        if (typeof value === 'string') {
           if (/判定\s*[:：]\s*正解/.test(value)) {
             correct++;
           } else if (/判定\s*[:：]\s*不正解/.test(value)) {
@@ -139,9 +137,7 @@ function appendJudgementSummaryRow() {
       const total = correct + incorrect;
       const rate = total > 0 ? Math.round((correct / total) * 100) : 0;
 
-      summaryRow[
-        colIndex
-      ] = `正解: ${correct} / 不正解: ${incorrect} / 正解率: ${rate}%`;
+      summaryRow[colIndex] = `正解: ${correct} / 不正解: ${incorrect} / 正解率: ${rate}%`;
     }
   });
 
@@ -150,29 +146,26 @@ function appendJudgementSummaryRow() {
 }
 
 function appendJudgementSummaryColumns() {
-  const spreadsheetId =
-    PropertiesService.getScriptProperties().getProperty("SPREADSHEET_ID");
+  const spreadsheetId = PropertiesService.getScriptProperties().getProperty("SPREADSHEET_ID");
   const sheet = SpreadsheetApp.openById(spreadsheetId).getSheets()[0];
   const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
   const data = sheet.getDataRange().getValues();
 
   // 判定_Qn の列インデックスを抽出
   const 判定ColIndices = headers
-    .map((h, i) => (h.startsWith("判定_Q") ? i : -1))
-    .filter((i) => i !== -1);
+    .map((h, i) => h.startsWith("判定_Q") ? i : -1)
+    .filter(i => i !== -1);
 
   const newHeaders = ["正解数", "不正解数", "正解率"];
-  sheet
-    .getRange(1, headers.length + 1, 1, newHeaders.length)
-    .setValues([newHeaders]);
+  sheet.getRange(1, headers.length + 1, 1, newHeaders.length).setValues([newHeaders]);
 
   for (let row = 1; row < data.length; row++) {
     let correct = 0;
     let incorrect = 0;
 
-    判定ColIndices.forEach((col) => {
+    判定ColIndices.forEach(col => {
       const value = data[row][col];
-      if (typeof value === "string") {
+      if (typeof value === 'string') {
         if (/判定\s*[:：]\s*正解/.test(value)) {
           correct++;
         } else if (/判定\s*[:：]\s*不正解/.test(value)) {
