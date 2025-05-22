@@ -5,9 +5,7 @@ function sendJudgementEmails() {
   const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
   const allValues = sheet.getDataRange().getValues();
   const emailColIndex = findEmailColumnIndex(headers);
-  const nameColIndex = headers.findIndex(
-    (h) => typeof h === "string" && h.trim() === "氏名"
-  );
+  const nameColIndex = headers.findIndex(h => typeof h === "string" && h.trim() === "氏名");
 
   if (emailColIndex === -1) {
     throw new Error("メールアドレス列（Email Address）が見つかりません。");
@@ -17,8 +15,9 @@ function sendJudgementEmails() {
   }
 
   // JSONファイルの読み込み
-  const file = DriveApp.getFilesByName("db1_chap02.01.json");
-  if (!file.hasNext()) throw new Error("db1_chap02.01.json が見つかりません");
+  const fileName = PropertiesService.getScriptProperties().getProperty("JSON_FILE_NAME");
+  const file = DriveApp.getFilesByName(fileName);
+  if (!file.hasNext()) throw new Error(fileName +" が見つかりません");
   const json = JSON.parse(file.next().getBlob().getDataAsString());
 
   // questionNumber => answer のマップを作成
@@ -67,8 +66,8 @@ function sendJudgementEmails() {
     });
 
     if (email) {
-      // GmailApp.sendEmail(email, "Database1課題の判定結果", mailBody); // メールを送信
-      GmailApp.createDraft(email, "Database1課題の判定結果", mailBody); // 下書きを保存
+      GmailApp.sendEmail(email, "Database1課題の判定結果", mailBody); // メールを送信
+      // GmailApp.createDraft(email, "Database1課題の判定結果", mailBody); // 下書きを保存
       Logger.log(`判定結果を ${email} に送信しました。`);
     }
   }
