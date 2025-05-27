@@ -27,6 +27,24 @@ INSERT INTO 試験結果 (受験者ID, 午前, 午後1, 午後2, 論述, 平均�
 --- 試験結果テーブルのデータの確認
 select * from 試験結果;
 
+CREATE TABLE 回答者 (
+  メールアドレス VARCHAR(100) PRIMARY KEY,
+  国名 VARCHAR(100),
+  住居 CHAR(1),
+  年齢 INTEGER
+);
+
+--- 回答者テーブルのデータの確認
+INSERT INTO 回答者 (メールアドレス, 国名, 住居, 年齢) VALUES
+('suzuki.takashi@example.jp', NULL, 'D', 51),
+('philip@example.uk', NULL, 'C', 26),
+('hao@example.cn', NULL, 'C', 35),
+('marie@example.fr', NULL, 'D', 43),
+('hoa@example.vn', NULL, 'D', 22);
+
+--- 回答者テーブルのデータの確認
+select * from 試験結回答者果;
+
 ```
 
 ## 問題
