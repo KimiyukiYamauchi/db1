@@ -43,7 +43,7 @@ INSERT INTO 回答者 (メールアドレス, 国名, 住居, 年齢) VALUES
 ('hoa@example.vn', NULL, 'D', 22);
 
 --- 回答者テーブルのデータの確認
-select * from 試験結回答者果;
+select * from 回答者;
 
 ```
 
