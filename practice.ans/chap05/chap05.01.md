@@ -73,7 +73,7 @@ SET 国名 = CASE
   WHEN メールアドレス LIKE '%.cn' THEN '中国'
   WHEN メールアドレス LIKE '%.fr' THEN 'フランス'
   WHEN メールアドレス LIKE '%.vn' THEN 'ベトナム'
-  ELSE 不明
+  ELSE '不明'
 END;
 ```
 
