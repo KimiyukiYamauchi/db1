@@ -66,7 +66,7 @@ ORDER BY 月;
 
 ```sql
 SELECT 都市名,
-       MAX(最高気温) AS 最高気温(30度以上)
+       MAX(最高気温) AS "最高気温(30度以上)"
 FROM 都市別気象観測
 GROUP BY 都市名
 HAVING MAX(最高気温) >= 30;
@@ -80,7 +80,7 @@ HAVING MAX(最高気温) >= 30;
 
 ```sql
 SELECT 都市名,
-       MIN(最低気温) AS 最低気温(0度以下)
+       MIN(最低気温) AS "最低気温(0度以下)"
 FROM 都市別気象観測
 GROUP BY 都市名
 HAVING MIN(最低気温) <= 0;
