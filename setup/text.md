@@ -1,8 +1,8 @@
 テキストの動作確認で使用する「家計簿」テーブル、「家計簿アーカイブ」テーブルを作成する
 
 ```sql
--- 既にデータベースがある場合はいったん削除、ない場合はエラー
-drop database `text`;
+-- 既にデータベースがある場合はいったん削除
+drop database if exists `text`;
 
 -- データベース作成（文字コードはUTF8MB4で日本語対応）
 CREATE DATABASE `text` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
