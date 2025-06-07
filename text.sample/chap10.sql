@@ -1,0 +1,8 @@
+DELETE FROM 費目 WHERE ID = 2;
+
+UPDATE 費目 SET ID = 5 WHERE ID = 1;
+
+INSERT INTO 家計簿 (日付, 費目ID, 入金額, 出金額)
+VALUES ('2024-04-08', 100, 0, 1000);
+
+UPDATE 家計簿 SET 費目ID = 100 WHERE 日付 = '2024-02-03';
