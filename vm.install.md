@@ -63,15 +63,22 @@ Host default
 code ~/.ssh/config
 ```
 
-以下を追記（例）：
+- 出力結果をファイルに貼りつける
+- Host名は適宜変更(ここではdb1)
+- 
 ```
-Host vagrant-vm
-  HostName 127.0.0.1
+Host db1
+  HostName 192.168.121.122
   User vagrant
-  Port 2222
-  IdentityFile /home/kimiyuki/vmd/db1/.vagrant/machines/default/virtualbox/private_key
+  Port 22
+  UserKnownHostsFile /dev/null
   StrictHostKeyChecking no
-  UserKnownHostsFile=/dev/null
+  PasswordAuthentication no
+  IdentityFile /home/yamauchi/Boxes/db1/.vagrant/machines/default/libvirt/private_key
+  IdentitiesOnly yes
+  LogLevel FATAL
+  PubkeyAcceptedKeyTypes +ssh-rsa
+  HostKeyAlgorithms +ssh-rsa
 ```
 
 ### 4. VS Codeで「Remote SSH」から vagrant-vm に接続
