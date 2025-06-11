@@ -2,7 +2,7 @@
 
 ```sql
 -- 既にデータベースがある場合はいったん削除、ない場合はエラー
-drop database `rpg`;
+drop database if exists `rpg`;
 
 -- データベース作成（文字コードはUTF8MB4で日本語対応）
 CREATE DATABASE `rpg` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
