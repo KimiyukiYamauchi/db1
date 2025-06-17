@@ -17,8 +17,8 @@ CREATE TABLE 学部 (
 このテーブルの趣旨と目的を考慮し、適切なデフォルト値や制約を加えるようSQL文を改訂してください。
 
 ```sql
-CREATE TABLE 学部 (
-  ID CHAR(1) PRIMARY KEY,
+CCREATE TABLE 学部 (
+  ID CHAR(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci PRIMARY KEY,
   名前 VARCHAR(20) NOT NULL UNIQUE,
   備考 VARCHAR(100) DEFAULT '特になし'
 );
@@ -57,7 +57,7 @@ CREATE TABLE 学生 (
   名前 VARCHAR(30) NOT NULL,
   生年月日 DATE NOT NULL,
   血液型 CHAR(2) CHECK (血液型 IN ('A', 'B', 'O', 'AB') OR 血液型 IS NULL),
-  学部ID CHAR(1),
+  学部ID CHAR(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   FOREIGN KEY (学部ID) REFERENCES 学部(ID)
 );
 ```
