@@ -290,7 +290,7 @@ erDiagram
 ## p405 問題12-2
 
 ```sql
-CREATE TABLE dept ((
+CREATE TABLE dept (
     deptno CHAR(2) PRIMARY KEY,
     deptname VARCHAR(40) UNIQUE NOT NULL
 );
