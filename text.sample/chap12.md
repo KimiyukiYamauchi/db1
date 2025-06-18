@@ -253,11 +253,11 @@ erDiagram
 
     部署 ||--o{ 部員 : "部署番号 1対多 (1件以上)"
     部員 ||--o{ 社員 : "社員番号 1対多 (1件以上)"
-  ```
+```
 
-  ### 第3正規形
+### 第3正規形
 
-  ```mermaid
+```mermaid
 erDiagram
     部署 {
         CHAR(2) 部署番号 PK
@@ -285,4 +285,83 @@ erDiagram
     部署 ||--o{ 部員 : "部署番号 1対多 (1件以上)"
     部員 ||--o{ 社員 : "社員番号 1対多 (1件以上)"
     役職 ||--o{ 社員 : "役職コード 1対多 (1件以上)"
-  ```
+```
+
+## p405 問題12-2
+
+```sql
+CREATE TABLE dept ((
+    deptno CHAR(2) PRIMARY KEY,
+    deptname VARCHAR(40) UNIQUE NOT NULL
+);
+
+CREATE TABLE pos (
+    poscode CHAR(1) PRIMARY KEY,
+    posname VARCHAR(20) UNIQUE NOT NULL
+);
+
+CREATE TABLE emp (
+    empno CHAR(5) PRIMARY KEY,
+    empname VARCHAR(40) NOT NULL,
+    poscode CHAR(1) NOT NULL REFERENCES pos(poscode),
+    age INTEGER CHECK(age >= 0)
+);
+
+CREATE TABLE member (
+    deptno CHAR(2) NOT NULL REFERENCES dept(deptno),
+    empno CHAR(5) NOT NULL REFERENCES emp(empno),
+    PRIMARY KEY(deptno, empno)
+);
+```
+
+## p405 問題12-3
+
+### 1.名刺
+
+```mermaid
+erDiagram
+    名刺 {
+        VARCHAR(20) メールアドレス
+        VARCHAR(20) 名前(日本語名)
+        VARCHAR(20) 名前(英語名)
+        VARCHAR(20) 会社名
+        VARCHAR(20) 部署名
+        VARCHAR(20) 会社郵便番号
+        VARCHAR(20) 会社住所
+        VARCHAR(20) 会社電話番号
+        VARCHAR(20) 会社FAX番号
+    }
+
+```
+
+### 2.`
+
+```mermaid
+erDiagram
+    見積書 {
+        INTEGER No
+        DATE 見積日
+        VARCHAR(20) 顧客名
+        VARCHAR(20) 件名
+        DATE 納期
+        VARCHAR(20) 支払条件
+        DATE 有効期限
+        INTEGER 合計金額
+        VARCHAR(20) 税区分
+        VARCHAR(20) 会社名
+        VARCHAR(20) 会社郵便番号
+        VARCHAR(20) 会社住所
+        VARCHAR(20) 会社電話番号
+        VARCHAR(20) 備考
+    }
+
+    見積明細 {
+        INTEGER 見積No FK
+        INTEGER 明細No
+        VARCHAR(20) 摘要
+        INTEGER 数量
+        VARCHAR(20) 単位
+        INTEGER 単価
+        INTEGER 金額
+    }
+```
