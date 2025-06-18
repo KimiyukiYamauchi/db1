@@ -321,7 +321,7 @@ CREATE TABLE member (
 ```mermaid
 erDiagram
     名刺 {
-        VARCHAR(20) メールアドレス
+        VARCHAR(20) メールアドレス PK
         VARCHAR(20) 名前(日本語名)
         VARCHAR(20) 名前(英語名)
         VARCHAR(20) 会社名
@@ -339,7 +339,7 @@ erDiagram
 ```mermaid
 erDiagram
     見積書 {
-        INTEGER 見積No
+        INTEGER 見積No PK
         DATE 見積日
         VARCHAR(20) 顧客名
         VARCHAR(20) 件名
@@ -356,8 +356,8 @@ erDiagram
     }
 
     見積明細 {
-        INTEGER 見積No FK
-        INTEGER 明細No
+        INTEGER 見積No PK
+        INTEGER 明細No PK
         VARCHAR(20) 摘要
         INTEGER 数量
         VARCHAR(20) 単位
