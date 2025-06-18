@@ -334,12 +334,12 @@ erDiagram
 
 ```
 
-### 2.`
+### 2.見積書
 
 ```mermaid
 erDiagram
     見積書 {
-        INTEGER No
+        INTEGER 見積No
         DATE 見積日
         VARCHAR(20) 顧客名
         VARCHAR(20) 件名
@@ -364,4 +364,8 @@ erDiagram
         INTEGER 単価
         INTEGER 金額
     }
+
+    見積書 ||--o{ 見積明細 : "見積No 1対多 (1件以上)"
+
+
 ```
